@@ -17,9 +17,12 @@
 .space-between { justify-content: space-between !important; }
 .flex-wrap { flex-wrap: wrap; }
 
+.bg-dim { background-color: #000000a1; }
 .no-interaction { pointer-events: none; }
 .wh-75 { width: 75%; height: 75%; }
+.w-75 { width: 75%; }
 .flip-H { transform: scale(-1, 1) }
+.mt-2rem { margin-top: 2rem }
 .mb-0 { margin-bottom: 0; }
 .not-allowed { cursor: not-allowed; }
 .hidden { display: none; }
@@ -79,3 +82,11 @@
 .text-align-left { text-align: left; }
 .bordered-list > * { border: 1px solid var(--c-dark); }
 .bordered-list .list-label { color: var(--c-darker); }
+
+
+
+/* using specific vars */
+.bg-border-dark-light {
+  border: 1px solid var(--c-light);
+  background-color: var(--c-darker);
+}

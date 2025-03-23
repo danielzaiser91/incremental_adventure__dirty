@@ -418,7 +418,6 @@ div#continue {bottom: 100px;}
   border: 5px solid #ff0707;
   border-radius: 20px;
 }
-#achievements { background: #000000a1; }
 #achievements .body{ margin-top:1rem }
 #achievements i { transform: scale(2) }
 #achievements i:nth-of-type(1) {
@@ -430,3 +429,45 @@ div#continue {bottom: 100px;}
   top: -10px;
 }
 #achievements .click-anywhere { margin-top: 3.5rem; }
+#dialogue-container {
+  color: var(--c-text-on-dark);
+}
+#dialogue .dialogue-title, #dialogue .person-img {
+  bottom: 100%;
+  color: var(--c-text-on-dark);
+}
+
+/* images */
+.person-orb { background-image: url("../images/persons/orb.jpg"); }
+.person-orb {
+  background-size: 130%;
+  background-position: 50% 67%;
+}
+.person-img {
+  width: 350px;
+  height: 300px;
+  position: absolute;
+  left:0;
+  border-radius:50px 50px 0 0;
+}
+.gender-selection {
+  position: absolute;
+  bottom: 100%;
+  display: flex;
+  width: 100%;
+  left: 0;
+}
+.gender-selection > div {
+  height: 500px;
+  width: 200px;
+  flex: 1;
+}
+.gender-selection .boy {
+  background-image: url("../images/persons/player_male.jpg");
+  background-position: 62%;
+  background-size: cover;
+}
+.gender-selection .girl { background-image: url("../images/persons/player_female.jpg"); }
+.bg-wakeup-0 { background: #000 }
+.bg-wakeup-1 { background: #1a0202 }
+.bg-wakeup-2 { background: #492828 }

@@ -151,7 +151,7 @@ const DEVELOP_SAVEGAME = {
   world: {
     currentLayer: [
       ENUMS.Layer.Adventure,
-      ENUMS.SubLayer.City,
+      ENUMS.SubLayer.Map,
       ENUMS.CityPart.CityMap
     ]
   }
