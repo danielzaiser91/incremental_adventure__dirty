@@ -7,15 +7,15 @@ const one = new Decimal(1);
 window.DECIMAL = Decimal;
 
 // CONSTANTS
-const THEMES = ['theme-energy','theme-r1','theme-r2', 'theme-white','theme-brown'];
-const TU_UPGRADES = {
+const THEME = ['theme-energy','theme-r1','theme-r2', 'theme-white','theme-brown'];
+const TU_UPGRADE = {
   'QT-1': ['Quick Training', 'increases TU gain by 1 per 15 seconds', 1],
   'QT-2': ['Quicker Training', 'increases TU gain by another 1 per 15 seconds', 10],
   'QT-3': ['Quickest Training', 'Doubles TU gain', 100],
   'Ease-1': ['Easier Training', 'Halves Energy Drain of Training', 100],
   'Auto-Leg': ['Auto Leg Training', 'unlocks Automation for Leg Training', 5],
 }
-const INVESTABLE_IDs = {
+const INVESTABLE_ID = {
   'Legs': 'Legs',
   'Arm': 'Arm',
   'Neck': 'Neck',
@@ -27,82 +27,101 @@ const INVESTABLE_IDs = {
 }
 /** [name, description, cost, weight] */
 const TU_INVESTABLE = {
-  [INVESTABLE_IDs.Legs]: ['', '', 1e2, 1],
-  [INVESTABLE_IDs.Arm]: ['', '', 1e5, 1e5],
-  [INVESTABLE_IDs.Neck]: ['', '', 1e8, 1e8],
-  [INVESTABLE_IDs.Shoulder]: ['', '', 1, 0],
-  [INVESTABLE_IDs.UpperAbdomen]: ['', '', 1, 0],
-  [INVESTABLE_IDs.LowerAbdomen]: ['', '', 1, 0],
-  [INVESTABLE_IDs.Facial]: ['', '', 1, 0],
-  [INVESTABLE_IDs.Chewing]: ['', '', 1, 0],
+  [INVESTABLE_ID.Legs]: ['', '', 1e2, 1],
+  [INVESTABLE_ID.Arm]: ['', '', 1e5, 1e5],
+  [INVESTABLE_ID.Neck]: ['', '', 1e8, 1e8],
+  [INVESTABLE_ID.Shoulder]: ['', '', 1, 0],
+  [INVESTABLE_ID.UpperAbdomen]: ['', '', 1, 0],
+  [INVESTABLE_ID.LowerAbdomen]: ['', '', 1, 0],
+  [INVESTABLE_ID.Facial]: ['', '', 1, 0],
+  [INVESTABLE_ID.Chewing]: ['', '', 1, 0],
 }
 
 const ENUMS = {
-  Layer: {
-    Adventure: 1,
-    Research: 2,
-    Settings: 'Settings',
-    Stats: 'Stats'
+  PERSON_ID: {
+    VOICE: 1,
   },
-  Training: {
-    r1: 0,
-    r2: 1,
+  DIALOGUE_ID: {
+    CHAPTER_0: {
+      CHAPTER_INTRO: 1, // start
+      INTRODUCE_CITY: 2, // click on city 1st time
+      INTRODUCE_GUILD: 3, // click on guild 1st time
+      GUILD_RECEPTIONIST_JOIN: 4, // talk to receptionist 1st time
+      INTRODUCE_TRAINING_GROUNDS: 5, // click on training_grounds 1st time
+      AFTER_FIRST_TU_GAINED: 6, // instructor will give tip how to train faster???
+      AFTER_ENERGY_ZERO_FIRST_TIME: 7, // when energy reaches 0 for the first time
+    },
   },
-  SubLayer: {
-    Map: 1,
-    City: 2,
+  LAYER: {
+    ADVENTURE: 1,
+    RESEARCH: 2,
+    SETTINGS: 'Settings',
+    STATS: 'Stats'
   },
-  CityPart: {
-    CityMap: 0,
-    Guild: 1,
-    Blacksmith: 2,
-    Marketplace: 3,
-    TrainingGrounds: 4
+  TRAINING: {
+    R1: 0,
+    R2: 1,
   },
-  Region: {
-    Baracuda: 1,
-    Concord: 2,
+  SUB_LAYER: {
+    MAP: 1,
+    CITY: 2,
   },
-  City: {
-    Vermillion: 1, // city in Baracuda
-    Steppen: 2, // city in Concord
+  CITY_PART: {
+    CITY_MAP: 0,
+    GUILD: 1,
+    BLACKSMITH: 2,
+    MARKETPLACE: 3,
+    TRAINING_GROUNDS: 4
   },
-  Story: { // immer wenn sich states im Spiel ändern, muss ich einen neuen Eintrag einfügen
-    Tutorial__Before_Popup: 0,
-    Tutorial__After_Welcome: 1,
-    Tutorial__After_City_Intro: 2,
-    Tutorial__After_Guild_Intro: 3,
-    Tutorial__After_TrainingGrounds_Intro: 4,
+  REGION: {
+    BARACUDA: 1,
+    CONCORD: 2,
   },
-  POPUP: {
-    HIDE: 0,
-    Chapter_0_intro: 1,
-    Chapter_0_welcome_to_city: 2,
-    Chapter_0_welcome_to_guild: 3,
-    Chapter_0_welcome_to_training: 4,
+  CITY: {
+    VERMILLION: 1, // city in Baracuda
+    STEPPEN: 2, // city in Concord
+  },
+  STORY: { // PLAYER READ DIALOGUE, DO NOT SHOW AGAIN
+    CHAPTER_0: {
+      BEFORE_INTRO: 0,
+      BEFORE_CITY: 1,
+      BEFORE_GUILD: 2,
+      BEFORE_INSTRUCTOR: 3,
+    }
   },
 }
-const TRANSLATIONS = {
-  Ressource: {
-    [ENUMS.Training.r1]: 'Strength',
-    [ENUMS.Training.r2]: 'Intelligence',
+const TRANSLATIONS_EN = {
+  PERSON_NAME_AND_IMAGE: {
+    [ENUMS.PERSON_ID.VOICE]: ['mysterious voice', 'person-orb'],
   },
-  CityPart: {
-    [ENUMS.CityPart.CityMap]: 'City Map',
-    [ENUMS.CityPart.Guild]: 'Guild',
-    [ENUMS.CityPart.Blacksmith]: 'Blacksmith',
-    [ENUMS.CityPart.Marketplace]: 'Marketplace',
-    [ENUMS.CityPart.TrainingGrounds]: 'Training Grounds',
+  REGION: {
+    [ENUMS.REGION.BARACUDA]: 'Baracuda',
+    [ENUMS.REGION.CONCORD]: 'Concord',
   },
-  investables: {
-    [INVESTABLE_IDs.Legs]: 'Leg',
-    [INVESTABLE_IDs.Arm]: 'Arm',
-    [INVESTABLE_IDs.Neck]: 'Neck',
-    [INVESTABLE_IDs.Shoulder]: 'Shoulder',
-    [INVESTABLE_IDs.UpperAbdomen]: 'Upper Abdomen',
-    [INVESTABLE_IDs.LowerAbdomen]: 'Lower Abdomen',
-    [INVESTABLE_IDs.Facial]: 'Facial',
-    [INVESTABLE_IDs.Chewing]: 'Chewing',
+  CITY: {
+    [ENUMS.CITY.VERMILLION]: 'Vermillion',
+    [ENUMS.CITY.STEPPEN]: 'Steppen',
+  },
+  RESSOURCE: {
+    [ENUMS.TRAINING.R1]: 'Strength',
+    [ENUMS.TRAINING.R2]: 'Intelligence',
+  },
+  CITY_PART: {
+    [ENUMS.CITY_PART.CITY_MAP]: 'City Map',
+    [ENUMS.CITY_PART.GUILD]: 'Guild',
+    [ENUMS.CITY_PART.BLACKSMITH]: 'Blacksmith',
+    [ENUMS.CITY_PART.MARKETPLACE]: 'Marketplace',
+    [ENUMS.CITY_PART.TRAINING_GROUNDS]: 'Training Grounds',
+  },
+  INVESTABLE: {
+    [INVESTABLE_ID.Legs]: 'Leg',
+    [INVESTABLE_ID.Arm]: 'Arm',
+    [INVESTABLE_ID.Neck]: 'Neck',
+    [INVESTABLE_ID.Shoulder]: 'Shoulder',
+    [INVESTABLE_ID.UpperAbdomen]: 'Upper Abdomen',
+    [INVESTABLE_ID.LowerAbdomen]: 'Lower Abdomen',
+    [INVESTABLE_ID.Facial]: 'Facial',
+    [INVESTABLE_ID.Chewing]: 'Chewing',
   }
 }
 /**
@@ -116,17 +135,9 @@ const TRANSLATIONS = {
  * @returns {void}
  */
 
-const RegionTranslate = {
-  [ENUMS.Region.Baracuda]: 'Baracuda',
-  [ENUMS.Region.Concord]: 'Concord',
-}
-const CityTranslate = {
-  [ENUMS.City.Vermillion]: 'Vermillion',
-  [ENUMS.City.Steppen]: 'Steppen',
-}
 const DEVELOP_SAVEGAME = {
   game: {
-    story_state: ENUMS.Story.Tutorial__After_Guild_Intro,
+    story_state: ENUMS.STORY.CHAPTER_0.INSTRUCTOR,
     body_vars: {
       unlockedR1: 1,
       unlockedR11: 1,
@@ -141,7 +152,7 @@ const DEVELOP_SAVEGAME = {
       training: {
         units: 0
       },
-      tu_invest: [[INVESTABLE_IDs.Legs, 0]]
+      tu_invest: [[INVESTABLE_ID.Legs, 0]]
     },
     training_info: {
       max_parallel_trainings: 1,
@@ -150,9 +161,9 @@ const DEVELOP_SAVEGAME = {
   },
   world: {
     currentLayer: [
-      ENUMS.Layer.Adventure,
-      ENUMS.SubLayer.Map,
-      ENUMS.CityPart.CityMap
+      ENUMS.LAYER.ADVENTURE,
+      ENUMS.SUB_LAYER.MAP,
+      ENUMS.CITY_PART.CITY_MAP
     ]
   }
 };
@@ -253,16 +264,16 @@ class World {
   set currentRegionAndCity(val) {
     let [newRegion, newCity] = val ?? [];
     const [currRegion, currCity] = this._currentRegionAndCity;
-    newRegion = newRegion ?? currRegion ?? ENUMS.Region.Baracuda;
-    newCity = newCity ?? currCity ?? ENUMS.City.Vermillion;
+    newRegion = newRegion ?? currRegion ?? ENUMS.REGION.BARACUDA;
+    newCity = newCity ?? currCity ?? ENUMS.CITY.VERMILLION;
     if (currRegion !== newRegion) {
       // region change html
-      const regionText = RegionTranslate[newRegion];
+      const regionText = TRANSLATIONS_EN.REGION[newRegion];
       all('[current_region_name]').forEach(el => el.textContent = regionText);
     }
     if (currCity !== newCity) {
       // city change html
-      const cityText = CityTranslate[newCity];
+      const cityText = TRANSLATIONS_EN.CITY[newCity];
       all('[current_city_name]').forEach(el => el.textContent = cityText);
     }
     this._currentRegionAndCity = [newRegion, newCity];
@@ -271,9 +282,9 @@ class World {
   set currentLayer(val) {
     let [newLayer, newSubLayer, newCitypart] = val ?? [];
     const [currLayer, currSubLayer, currCitypart] = this._currentLayer;
-    newLayer = newLayer ?? currLayer ?? ENUMS.Layer.Adventure;
-    newSubLayer = newSubLayer ?? currSubLayer ?? ENUMS.SubLayer.City;
-    newCitypart = newCitypart ?? currCitypart ?? ENUMS.CityPart.CityMap;
+    newLayer = newLayer ?? currLayer ?? ENUMS.LAYER.ADVENTURE;
+    newSubLayer = newSubLayer ?? currSubLayer ?? ENUMS.SUB_LAYER.CITY;
+    newCitypart = newCitypart ?? currCitypart ?? ENUMS.CITY_PART.CITY_MAP;
     if (newLayer !== currLayer) {
       // change html layer attr
       DATA.ui.Elements.layerEl.dataset.showLayer = String(newLayer);
@@ -285,7 +296,7 @@ class World {
     if (newCitypart !== currCitypart) {
       // change html cityPart attr
       DATA.ui.Elements.layerEl.dataset.currentCityPart = String(newCitypart);
-      const cityPartText = TRANSLATIONS.CityPart[newCitypart];
+      const cityPartText = TRANSLATIONS_EN.CITY_PART[newCitypart];
       all('[current_city_part]').forEach(el => el.textContent = cityPartText);
     }
 
@@ -454,7 +465,7 @@ class Game {
   }
   
   loadFromSavegame(savegame = {}) {
-    this.story_state = savegame.story_state ?? ENUMS.Story.Tutorial__Before_Popup;
+    this.story_state = savegame.story_state ?? ENUMS.STORY.CHAPTER_0.BEFORE_INTRO;
     if (typeof savegame.body_vars === 'object') this.body_vars = { ...Game.defaultBodyVars, ...savegame.body_vars };
 
     this.init();
@@ -462,7 +473,7 @@ class Game {
   
   init() {
     this.onChangeBodyVars();
-    this.check_for_one_time_popups();
+    this.check_should_show_intro();
     this.init_game_loop();
   }
 
@@ -470,9 +481,9 @@ class Game {
     DATA.ui.onChange_bodyVars(this.body_vars);
   }
 
-  check_for_one_time_popups() {
-    if (this.story_state === ENUMS.Story.Tutorial__Before_Popup) {
-      DATA.ui.popup.showPopup(ENUMS.POPUP.Chapter_0_intro);
+  check_should_show_intro() {
+    if (this.story_state === ENUMS.STORY.CHAPTER_0.BEFORE_INTRO) {
+      DATA.ui.popup.openDialogue(ENUMS.DIALOGUE_ID.CHAPTER_0.CHAPTER_INTRO);
     }
   }
 
@@ -565,7 +576,7 @@ class Player {
     let state = isActive ? 'start':'stop';
     const stateLabel = !isActive ? 'begin ':'stop ';
     if (disable) state = 'disable';
-    const label = stateLabel + TRANSLATIONS.Ressource[index] + ' training';
+    const label = stateLabel + TRANSLATIONS_EN.RESSOURCE[index] + ' training';
     DATA.ui.changeTrainingStatusButton(index, state, label);
   }
 
@@ -612,23 +623,23 @@ class Player {
         tu_perSec: tu_perSec.p(),
         tu_bar: this.r1.training.bar_progress.times(100).p(),
         purchaseable: Object.values(this.r1.tu_invest).filter(invest => invest.isPurchaseable).map(invest => invest.id),
-        [INVESTABLE_IDs.Legs]: this.r1.tu_invest[INVESTABLE_IDs.Legs].bought.p(),
-        [INVESTABLE_IDs.Arm]: this.r1.tu_invest[INVESTABLE_IDs.Arm].bought.p(),
-        [INVESTABLE_IDs.Neck]: this.r1.tu_invest[INVESTABLE_IDs.Neck].bought.p(),
-        [INVESTABLE_IDs.Shoulder]: this.r1.tu_invest[INVESTABLE_IDs.Shoulder].bought.p(),
-        [INVESTABLE_IDs.UpperAbdomen]: this.r1.tu_invest[INVESTABLE_IDs.UpperAbdomen].bought.p(),
-        [INVESTABLE_IDs.LowerAbdomen]: this.r1.tu_invest[INVESTABLE_IDs.LowerAbdomen].bought.p(),
-        [INVESTABLE_IDs.Facial]: this.r1.tu_invest[INVESTABLE_IDs.Facial].bought.p(),
-        [INVESTABLE_IDs.Chewing]: this.r1.tu_invest[INVESTABLE_IDs.Chewing].bought.p(),
+        [INVESTABLE_ID.Legs]: this.r1.tu_invest[INVESTABLE_ID.Legs].bought.p(),
+        [INVESTABLE_ID.Arm]: this.r1.tu_invest[INVESTABLE_ID.Arm].bought.p(),
+        [INVESTABLE_ID.Neck]: this.r1.tu_invest[INVESTABLE_ID.Neck].bought.p(),
+        [INVESTABLE_ID.Shoulder]: this.r1.tu_invest[INVESTABLE_ID.Shoulder].bought.p(),
+        [INVESTABLE_ID.UpperAbdomen]: this.r1.tu_invest[INVESTABLE_ID.UpperAbdomen].bought.p(),
+        [INVESTABLE_ID.LowerAbdomen]: this.r1.tu_invest[INVESTABLE_ID.LowerAbdomen].bought.p(),
+        [INVESTABLE_ID.Facial]: this.r1.tu_invest[INVESTABLE_ID.Facial].bought.p(),
+        [INVESTABLE_ID.Chewing]: this.r1.tu_invest[INVESTABLE_ID.Chewing].bought.p(),
         investable_cost: {
-          [INVESTABLE_IDs.Legs]: this.r1.tu_invest[INVESTABLE_IDs.Legs].cost,
-          [INVESTABLE_IDs.Arm]: this.r1.tu_invest[INVESTABLE_IDs.Arm].cost,
-          [INVESTABLE_IDs.Neck]: this.r1.tu_invest[INVESTABLE_IDs.Neck].cost,
-          [INVESTABLE_IDs.Shoulder]: this.r1.tu_invest[INVESTABLE_IDs.Shoulder].cost,
-          [INVESTABLE_IDs.UpperAbdomen]: this.r1.tu_invest[INVESTABLE_IDs.UpperAbdomen].cost,
-          [INVESTABLE_IDs.LowerAbdomen]: this.r1.tu_invest[INVESTABLE_IDs.LowerAbdomen].cost,
-          [INVESTABLE_IDs.Facial]: this.r1.tu_invest[INVESTABLE_IDs.Facial].cost,
-          [INVESTABLE_IDs.Chewing]: this.r1.tu_invest[INVESTABLE_IDs.Chewing].cost,
+          [INVESTABLE_ID.Legs]: this.r1.tu_invest[INVESTABLE_ID.Legs].cost,
+          [INVESTABLE_ID.Arm]: this.r1.tu_invest[INVESTABLE_ID.Arm].cost,
+          [INVESTABLE_ID.Neck]: this.r1.tu_invest[INVESTABLE_ID.Neck].cost,
+          [INVESTABLE_ID.Shoulder]: this.r1.tu_invest[INVESTABLE_ID.Shoulder].cost,
+          [INVESTABLE_ID.UpperAbdomen]: this.r1.tu_invest[INVESTABLE_ID.UpperAbdomen].cost,
+          [INVESTABLE_ID.LowerAbdomen]: this.r1.tu_invest[INVESTABLE_ID.LowerAbdomen].cost,
+          [INVESTABLE_ID.Facial]: this.r1.tu_invest[INVESTABLE_ID.Facial].cost,
+          [INVESTABLE_ID.Chewing]: this.r1.tu_invest[INVESTABLE_ID.Chewing].cost,
         },
         milestoneInfo: Object.fromEntries(Object.values(this.r1.tu_invest).map(i => 
           [i.id, i.getMilestoneInfoForUi]
@@ -657,7 +668,7 @@ class R1 {
   /**
    * Upgrades for Training Units, which can be bought with R1 Upgrade Points
    */
-  tu_upgrades = Object.fromEntries(Object.entries(TU_UPGRADES).map(([id, [name, description, cost, effect]]) => [id,new TUUpgrade(id, name, description, cost, effect)]));
+  tu_upgrades = Object.fromEntries(Object.entries(TU_UPGRADE).map(([id, [name, description, cost, effect]]) => [id,new TUUpgrade(id, name, description, cost, effect)]));
   tu_invest = Object.fromEntries(Object.entries(TU_INVESTABLE).map(([id, [name, description, cost, weight]]) => [id,new TUInvest(id, name, description, cost, weight)]));
 
   base = DECIMALTYPE;
@@ -781,7 +792,7 @@ class R1 {
       }
     } else {
       // not enough energy, stop training
-      DATA.player.toggleTraining(ENUMS.Training.r1);
+      DATA.player.toggleTraining(ENUMS.TRAINING.R1);
       DATA.ui.popup.notify(`⚡ out of energy ⚡
 
 Trainings stopped`, 'theme-energy')
@@ -794,7 +805,7 @@ Trainings stopped`, 'theme-energy')
   }
 
   isTrainingActive() {
-    return DATA.player.status.training_info.training_active[ENUMS.Training.r1];
+    return DATA.player.status.training_info.training_active[ENUMS.TRAINING.R1];
   }
 }
 
@@ -865,7 +876,7 @@ class TUInvest extends Upgrade {
 
   checkIfSomethingUnlocked() {
     switch(this.id) {
-      case INVESTABLE_IDs.Legs: return this.checkLegUnlock();
+      case INVESTABLE_ID.Legs: return this.checkLegUnlock();
     }
   }
 
@@ -971,7 +982,7 @@ class Ui {
       tu_perSec: [HTMLDivElement],
       tu_bar: [HTMLDivElement],
       investables: {
-        [INVESTABLE_IDs.Legs]: {
+        [INVESTABLE_ID.Legs]: {
           purchase_btn: HTMLDivElement,
           purchase_btn__label: HTMLDivElement,
           purchase_btn__cost: HTMLDivElement,
@@ -988,8 +999,8 @@ class Ui {
       bar: [HTMLDivElement]
     },
     trainingButtons: {
-      [ENUMS.Training.r1]: HTMLDivElement,
-      [ENUMS.Training.r2]: HTMLDivElement,
+      [ENUMS.TRAINING.R1]: HTMLDivElement,
+      [ENUMS.TRAINING.R2]: HTMLDivElement,
     },
   }
 
@@ -1009,8 +1020,8 @@ class Ui {
 
   initLocalVars() {
     this.Elements.layerEl = id('layer');
-    this.Elements.trainingButtons[ENUMS.Training.r1] = id('begin_training_r1');
-    this.Elements.trainingButtons[ENUMS.Training.r2] = id('begin_training_r2');
+    this.Elements.trainingButtons[ENUMS.TRAINING.R1] = id('begin_training_r1');
+    this.Elements.trainingButtons[ENUMS.TRAINING.R2] = id('begin_training_r2');
     this.Elements.r1.total = all('[data-strength-total]');
     this.Elements.r1.tu = all('[data-r1-tu]');
     this.Elements.r1.tu_bar = all('[data-r1-tu-bar]');
@@ -1070,7 +1081,7 @@ class Ui {
           if (value.investable_cost) {
             Object.entries(this.Elements.r1.investables).forEach(([id, { purchase_btn__label, purchase_btn__cost }]) => {
               if (!value.investable_cost[id]) return;
-              purchase_btn__label.textContent = TRANSLATIONS.investables[id] + ' Muscles';
+              purchase_btn__label.textContent = TRANSLATIONS_EN.INVESTABLE[id] + ' Muscles';
               purchase_btn__cost.textContent = value.investable_cost[id];
             });
           }
@@ -1114,19 +1125,19 @@ class Ui {
 
   initUiListeners() {
     // Layer Nav
-    clickListener(id('navigate_to_1'), () => this.selectLayer(ENUMS.Layer.Adventure), this); // adventure Layer
-    clickListener(id('navigate_to_2'), () => this.selectLayer(ENUMS.Layer.Research), this); // research Layer
-    clickListener(id('navigate_to_Stats'), () => this.selectLayer(ENUMS.Layer.Stats), this); // settings Layer
-    clickListener(id('navigate_to_Settings'), () => this.selectLayer(ENUMS.Layer.Settings), this); // settings Layer
-    clickListener(id('nav_to_11'), () => this.selectLayer(ENUMS.Layer.Adventure, ENUMS.SubLayer.Map), this); // map, inside of adventure Layer
+    clickListener(id('navigate_to_1'), () => this.selectLayer(ENUMS.LAYER.ADVENTURE), this); // adventure Layer
+    clickListener(id('navigate_to_2'), () => this.selectLayer(ENUMS.LAYER.RESEARCH), this); // research Layer
+    clickListener(id('navigate_to_Stats'), () => this.selectLayer(ENUMS.LAYER.STATS), this); // settings Layer
+    clickListener(id('navigate_to_Settings'), () => this.selectLayer(ENUMS.LAYER.SETTINGS), this); // settings Layer
+    clickListener(id('nav_to_11'), () => this.selectLayer(ENUMS.LAYER.ADVENTURE, ENUMS.SUB_LAYER.MAP), this); // map, inside of adventure Layer
     clickListener(id('nav_to_12'), this.onPressCity, this); // city, inside of map
     
     // city Nav
-    clickListener(id('nav_to_city_0'), () => this.selectCityPart(ENUMS.CityPart.CityMap), this); // city-map, inside of city
+    clickListener(id('nav_to_city_0'), () => this.selectCityPart(ENUMS.CITY_PART.CITY_MAP), this); // city-map, inside of city
     clickListener(id('nav_to_city_1'), this.onPressGuild, this); // guild, inside of city
-    clickListener(id('nav_to_city_2'), () => this.selectCityPart(ENUMS.CityPart.Blacksmith), this); // Blacksmith, inside of city
-    clickListener(id('nav_to_city_3'), () => this.selectCityPart(ENUMS.CityPart.Marketplace), this); // Marketplace, inside of city
-    clickListener(this.Elements.trainingButtons[ENUMS.Training.r1], () => DATA.player.toggleTraining(ENUMS.Training.r1), this);
+    clickListener(id('nav_to_city_2'), () => this.selectCityPart(ENUMS.CITY_PART.BLACKSMITH), this); // Blacksmith, inside of city
+    clickListener(id('nav_to_city_3'), () => this.selectCityPart(ENUMS.CITY_PART.MARKETPLACE), this); // Marketplace, inside of city
+    clickListener(this.Elements.trainingButtons[ENUMS.TRAINING.R1], () => DATA.player.toggleTraining(ENUMS.TRAINING.R1), this);
 
 
   }
@@ -1145,30 +1156,25 @@ class Ui {
   }
 
   selectCityPart(part) {
-    this.selectLayer(ENUMS.Layer.Adventure, ENUMS.SubLayer.City, part);
+    this.selectLayer(ENUMS.LAYER.ADVENTURE, ENUMS.SUB_LAYER.CITY, part);
   }
 
   onPressCity() {
-    if (DATA.game.story_state === ENUMS.Story.Tutorial__After_Welcome) DATA.ui.popup.showPopup(ENUMS.POPUP.Chapter_0_welcome_to_city);
-    this.selectCityPart(ENUMS.CityPart.CityMap);
+    if (DATA.game.story_state === ENUMS.STORY.CHAPTER_0.BEFORE_CITY) DATA.ui.popup.openDialogue(ENUMS.DIALOGUE_ID.CHAPTER_0.INTRODUCE_CITY);
+    this.selectCityPart(ENUMS.CITY_PART.CITY_MAP);
   }
 
   onPressGuild() {
-    if (DATA.game.story_state === ENUMS.Story.Tutorial__After_City_Intro) DATA.ui.popup.showPopup(ENUMS.POPUP.Chapter_0_welcome_to_guild);
-    this.selectCityPart(ENUMS.CityPart.Guild);
+    if (DATA.game.story_state === ENUMS.STORY.CHAPTER_0.BEFORE_GUILD) DATA.ui.popup.openDialogue(ENUMS.DIALOGUE_ID.CHAPTER_0.INTRODUCE_GUILD);
+    this.selectCityPart(ENUMS.CITY_PART.GUILD);
   }
   
-  selectLayer(layer, sublayer = ENUMS.SubLayer.Map, cityPart = ENUMS.CityPart.CityMap) {
+  selectLayer(layer, sublayer = ENUMS.SUB_LAYER.MAP, cityPart = ENUMS.CITY_PART.CITY_MAP) {
     DATA.world.currentLayer = [layer, sublayer, cityPart];
   }
 }
 
 class Popup {
-  // popup Elements
-  popup_title_container = HTMLDivElement; popupElement = HTMLDivElement; popup_actions = HTMLDivElement;
-  popup_paragraph = HTMLParagraphElement;
-  popup_title = HTMLHeadingElement; 
-
   // notification Elements
   notificationContainer = HTMLDivElement;
   notificationEls = [HTMLDivElement];
@@ -1176,26 +1182,63 @@ class Popup {
   // Achievement Elements
   achievementEl = [HTMLDivElement];
 
-  // PopupState
-  currentState = [ENUMS.POPUP.HIDE, ENUMS.POPUP.HIDE];
+  // DialogueState
+  currentState = [0,0];
 
   constructor() {
-    this.popupElement = id('popup');
-    this.popup_title_container = id('popup_title_container');
-    this.popup_title = id('popup_title');
-    this.popup_paragraph = id('popup_paragraph');
-    this.popup_actions = id('popup_actions');
+    this.dialogueEls = {
+      dialogueMainEl: id('dialogue'),
+      npcTemplate: id('dialogue-template-npc'),
+      playerTemplate: id('dialogue-template-player'),
+      conversationArea: id('conversation'),
+      personImage: id('person-image'),
+      personName: id('person-name'),
+      playerResponse: {
+        preText: id('response-text'),
+        actions: all('#response-actions button')
+      }
+    }
     this.notificationContainer = id('notification-container');
     this.notificationEls = all('.notification');
     this.achievementEl = [id('achievements'), q('#achievements [data-achievement-title]'), q('#achievements .body')];
     this.achievementEl[0].addEventListener('click', () => this.achievementEl[0].classList.add('d-none'));
-    Array.from(this.popup_actions.querySelectorAll('.action-button')).forEach((btn, index) => {
+    this.dialogueEls.playerResponse.actions.forEach((btn, index) => {
       clickListener(btn, ev => this.actionButtonPressed(index, btn), this);
     });
     this.initNotifyQueueChecker();
-    let test_number = 1;
-    clickListener(id('test_notification'), () => {this.notify('test #'+test_number++)}, this);
+    this.openDialogue(ENUMS.DIALOGUE_ID.CHAPTER_0.CHAPTER_INTRO);
   }
+
+  openDialogue(nr,subnr=0, keep = false) {
+    this.currentState = [nr, subnr];
+    if (!keep) this.dialogueEls.conversationArea.replaceChildren(); // remove all dialoge items
+    const {person, text, actions, preText } = this.dialogue[nr][subnr];
+    const [name,image] = TRANSLATIONS_EN.PERSON_NAME_AND_IMAGE[person];
+    this.dialogueEls.dialogueMainEl.classList.remove('d-none');
+    this.dialogueEls.personName.textContent = name;
+    this.dialogueEls.personImage.className = 'person-img ' + image;
+    this.npcMsg(text);
+    this.dialogueEls.playerResponse.preText.parentElement.classList.add('d-none');
+    if (preText) {
+      this.dialogueEls.playerResponse.preText.parentElement.classList.remove('d-none');
+      this.dialogueEls.playerResponse.preText.textContent = preText;
+    }
+    this.dialogueEls.playerResponse.actions.forEach(action => action.classList.add('d-none'));
+    actions.forEach((action,index) => {
+      const btn = this.dialogueEls.playerResponse.actions[index];
+      btn.textContent = action.text;
+      btn.classList.remove('d-none');
+    });
+  }
+
+  msg(msg, by) {
+    const npcNode = this.dialogueEls[by === 'npc' ? 'npcTemplate' : 'playerTemplate'].cloneNode();
+    npcNode.classList.remove('d-none');
+    npcNode.textContent = msg;
+    this.dialogueEls.conversationArea.appendChild(npcNode);
+  }
+  playerMsg(msg) { this.msg(msg, 'player'); }
+  npcMsg(msg) { this.msg(msg, 'npc'); }
 
   currentVisibleNotifications = [];
   notifyQueue = [];
@@ -1225,7 +1268,7 @@ class Popup {
   }
 
   addTheme(el, theme) { el.classList.add(theme); }
-  removeThemes(el) { el.classList.remove(...THEMES) }
+  removeThemes(el) { el.classList.remove(...THEME) }
 
   achievements = [
     new Achievement('Never skip Leg Day!','Reach 100 Leg Muscle Mass'),
@@ -1238,27 +1281,32 @@ class Popup {
 
   actionButtonPressed(btnIndex, btn) {
     const [nr, subNr] = this.currentState;
-    this.options[nr][subNr].actions[btnIndex].action.call(this);
+    this.playerMsg(btn.textContent);
+    this.dialogue[nr][subNr].actions[btnIndex].action.call(this);
   }
 
-  options = {
-    [ENUMS.POPUP.Chapter_0_intro]: { // Beginning of the game
+  dialogue = {
+    [ENUMS.DIALOGUE_ID.CHAPTER_0.CHAPTER_INTRO]: { // Beginning of the game
       title: 'Chapter 0 - Becoming an Adventurer!',
       0: {
+        person: ENUMS.PERSON_ID.VOICE,
         text: 'Hello there!',
         actions: [ { text: 'Me...?', action: this.continueState } ]
       },
       1: {
+        person: ENUMS.PERSON_ID.VOICE,
         text: "Yes you! You want to be an adventurer, isn't that right?",
         actions: [ { text: 'Yeah...', action: this.continueState } ]
       },
       2: {
+        person: ENUMS.PERSON_ID.VOICE,
         text: "So you don't want to be a farmer like your parents?",
         actions: [ { text: 'No!', action: this.continueState } ]
       },
       3: {
+        person: ENUMS.PERSON_ID.VOICE,
         text: "So tell me, what is your motivation? What are you looking for?",
-        preText: 'I want to',
+        preText: 'I want to:',
         actions: [
           { text: 'be rich!', action: () => this.motivationChoice(1) },
           { text: 'be strong!', action: () => this.motivationChoice(2) },
@@ -1267,19 +1315,20 @@ class Popup {
         ]
       },
       4: {
-        text: "Alright!\n\n\nLet's not waste any more time, and head out there!\nFirst Stop: "+CityTranslate[ENUMS.City.Vermillion]+", the closest city in the region of "+RegionTranslate[ENUMS.Region.Baracuda]+".",
-        actions: [ { text: 'Lets go!', action: this.endState } ]
+        person: ENUMS.PERSON_ID.VOICE,
+        text: "Alright!\n\n\nLet's not waste any more time, and head out there!\nFirst Stop: "+TRANSLATIONS_EN.CITY[ENUMS.CITY.VERMILLION]+", the closest city in the region of "+TRANSLATIONS_EN.REGION[ENUMS.REGION.BARACUDA]+".",
+        actions: [ { text: 'Lets go!', action: this.closeDialogue } ]
       }
     },
-    [ENUMS.POPUP.Chapter_0_welcome_to_city]: { // entering the city
+    [ENUMS.DIALOGUE_ID.CHAPTER_0.INTRODUCE_CITY]: { // entering the city
       0: {
-        text: 'you just entered '+CityTranslate[ENUMS.City.Vermillion]+'. It\'s a small city, but offers everything one might need.\nThe local adventurer guild outpost, might be small, but that should not matter to you.\nYou should go there right away, and ask to join.',
-        actions: [ { text: 'Could it really be that easy?...', action: this.endState } ]
+        text: 'you just entered '+TRANSLATIONS_EN.CITY[ENUMS.CITY.VERMILLION]+'. It\'s a small city, but offers everything one might need.\nThe local adventurer guild outpost, might be small, but that should not matter to you.\nYou should go there right away, and ask to join.',
+        actions: [ { text: 'Could it really be that easy?...', action: this.closeDialogue } ]
       }
     },
-    [ENUMS.POPUP.Chapter_0_welcome_to_guild]: { // entering the guild
+    [ENUMS.DIALOGUE_ID.CHAPTER_0.INTRODUCE_GUILD]: { // entering the guild
       0: {
-        text: () => 'upon entering the guild, you are greeted by the receptionist.\n\n"Hey there, welcome to the adventurer guild of '+CityTranslate[ENUMS.City.Vermillion]+'!\nHow may i be of service?"',
+        text: () => 'upon entering the guild, you are greeted by the receptionist.\n\n"Hey there, welcome to the adventurer guild of '+TRANSLATIONS_EN.CITY[ENUMS.CITY.VERMILLION]+'!\nHow may i be of service?"',
         actions: [ { text: "I'd like to register as an adventurer", action: this.continueState } ]
       },
       1: {
@@ -1288,81 +1337,28 @@ class Popup {
       },
       2: {
         text: () => '"Just head over to the trainings ground and talk with the training officer.\nHe will help you prepare for the exam, in case you don\'t meet the physical requirements yet."',
-        actions: [ { text: "I'll head over there right away, thank you very much.", action: this.endState } ]
+        actions: [ { text: "I'll head over there right away, thank you very much.", action: this.closeDialogue } ]
       }
     },
-    [ENUMS.POPUP.Chapter_0_welcome_to_training]: { // entering the training grounds
+    [ENUMS.DIALOGUE_ID.CHAPTER_0.INTRODUCE_TRAINING_GROUNDS]: { // entering the training grounds
       0: {
         text: "you arrive at the guild's training grounds. The guild's training officer approaches.\n\n\"You look puny, you've come to the right place to improve your weak physique.\"",
         actions: [ { text: "That was unnecessarily mean...", action: this.continueState } ]
       },
       1: {
         text: '"Haha", the old man laughs out loud, "No harm intended. I apologize. You can go over there and begin with some basic exercises."',
-        actions: [ { text: "Lead the way, old man.", action: this.endState } ]
+        actions: [ { text: "Lead the way, old man.", action: this.closeDialogue } ]
       },
     },
   }
 
   motivationChoice(nr) {
-    DATA.player.choice.motivation = nr;
+    DATA.player.choices.motivation = nr;
     this.continueState();
   }
 
-  continueState() {
-    this.currentState[1]++;
-    this.fill(...this.currentState);
-  }
-
-  endState() {
-    switch(this.currentState[0]) {
-      case 1:
-        DATA.game.story_state = ENUMS.Story.Tutorial__After_Welcome;
-        break;
-      case 2:
-        DATA.game.story_state = ENUMS.Story.Tutorial__After_City_Intro;
-        break;
-      case 3:
-        DATA.game.story_state = ENUMS.Story.Tutorial__After_Guild_Intro;
-        break;
-      case 4:
-        DATA.game.story_state = ENUMS.Story.Tutorial__After_TrainingGrounds_Intro;
-        break;
-      default: throw Error('missing EndState');
-    }
-    this.closePopup();
-  }
-
-  showPopup(nr) {
-    this.popupElement.classList.remove('hidden-i');
-    this.fill(nr, 0);
-  }
-
-  fill(nr, subNr) {
-    this.currentState = [nr, subNr];
-    if (this.options[nr].title) {
-      this.popup_title_container.classList.remove('hidden-i');
-      this.popup_title.textContent = this.options[nr].title;
-    } else {
-      this.popup_title_container.classList.add('hidden-i');
-    }
-    const text = typeof this.options[nr][subNr].text === 'function' ? this.options[nr][subNr].text() : this.options[nr][subNr].text;
-    this.popup_paragraph.textContent = text;
-
-    Array.from(this.popup_actions.querySelectorAll('.action-button')).forEach((btn, index) => {
-      const action = this.options[nr][subNr].actions[index];
-      if (action) {
-        btn.classList.remove('hidden');
-        btn.textContent = action.text;
-      } else {
-        btn.classList.add('hidden');
-      }
-    });
-  }
-
-  closePopup() {
-    this.currentState = [ENUMS.POPUP.HIDE, ENUMS.POPUP.HIDE];
-    this.popupElement.classList.add('hidden-i');
-  }
+  continueState() { this.openDialogue(...[this.currentState[0], ++this.currentState[1]], true); }
+  closeDialogue() { this.dialogueEls.dialogueMainEl.classList.add('d-none'); }
 }
 
 class Achievement {

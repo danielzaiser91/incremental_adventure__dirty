@@ -44,7 +44,7 @@
     <!-- center: main Feature -->
     <div id="center_area" class="h-vh flex-1 d-flex flex-col">
       <!-- top: infos über current-layer -->
-      <div id="center_area_top_info_area">
+      <div id="center_area_top_info_area" class="border-bottom">
         <div id="info">
           <!-- per js mit dynamischen text füllen, ansonsten statischen text anzeigen, je nach gewähltem feature -->
           <div id="dynamic_info" class="hidden"></div>
@@ -317,7 +317,6 @@
     </div>
     <!-- right: Ressources -->
     <div id="right_sidebar">
-      <button id="test_notification">test notification</button>
       <!-- sobald unlocked, zeigt jedes feature seine ressource hier an -->
       <div id="ressource-1-container" class="unlocked-r1 w-100 hover-anchor-1 theme-r1">
         <button id="ressource-1"><span data-strength-total>1</span> <span>Strength</span></button>
@@ -361,31 +360,35 @@
   </div>
 </div>
 <div id="dialogue" class="d-flex p-fixed bottom-0 center-xy z-1 h-100 w-100 bg-dim bg-wakeup-0 d-none">
-  <div id="dialogue-container" class="d-flex flex-col text-center bottom-0 p-absolute w-75 padding-lr-10 padding-tb-10 bg-border-dark-light">
-    <div class="person-img person-orb"></div>
+  <div id="dialogue-container" class="d-flex flex-col text-center bottom-0 p-absolute w-75 bg-border-dark-light">
+    <div id="person-image" class="person-img"></div>
     <div class="gender-selection d-none">
       <div class="boy"></div>
       <div class="girl"></div>
     </div>
-    <div class="dialogue-title x1_1 d-flex center-x p-absolute left-0 padding-lr-10 padding-tb-10 bg-border-dark-light">
-      <span data-person-name>Mysterious Voice</span>
+    <div class="person-name x1_1 d-flex center-x p-absolute left-0 padding-lr-10 padding-tb-10 bg-border-dark-light">
+      <span id="person-name"></span>
     </div>
-    <div class="dialogue-body">Hello there...</div>
-    <div class="click-anywhere mt-2rem">click anywhere to dismiss...</div>
-  </div>
-</div>
-<div id="popup" class="d-flex flex-col d-none">
-  <div  class="flex-1">
-    <div id ="popup_title_container" class="story-border"><h1 id="popup_title">Title</h1></div>
-  </div>
-  <div class="flex-4 center-xy d-flex w-100">
-    <p id="popup_paragraph" class="x2 text-center pre"></p>
-  </div>
-  <div id="popup_actions" class="flex-1 d-flex center-xy">
-    <button class="action-button hidden">Choice #1</button>
-    <button class="action-button hidden">Choice #2</button>
-    <button class="action-button hidden">Choice #3</button>
-    <button class="action-button hidden">Choice #4</button>
+    <div id="dialogue-template-npc" class="dialogue-body dialogue-npc d-none">... Element to copy for NPC...</div>
+    <div id="dialogue-template-player" class="dialogue-body dialogue-player d-none">... Element to copy for Player...</div>
+    <div id="conversation" class="d-flex flex-col padding-lr-1rem padding-tb-1rem border-bottom gap-xs">
+    </div>
+    <div data-dialoge-player-container>
+      <div class="d-flex">
+        <div class="flex-1"></div>
+        <div id="response-actions" class="d-flex flex-col flex-1">
+          <div class="d-none padding-tb-10 text-align-left">
+            <div id="response-text"></div>
+            <hr class="mb-0 mr-10">
+          </div>
+          <button class="white-border--not-hovered d-none">OPTION A</button>
+          <button class="white-border--not-hovered d-none">OPTION B</button>
+          <button class="white-border--not-hovered d-none">OPTION C</button>
+          <button class="white-border--not-hovered d-none">OPTION D</button>
+        </div>
+      </div>
+    </div>
+    <div class="click-anywhere mt-2rem mb-02rem d-none">click anywhere to dismiss...</div>
   </div>
 </div>
 </body>

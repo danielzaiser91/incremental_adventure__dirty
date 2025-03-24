@@ -308,34 +308,6 @@ button:active, .btn:active {
 /*
   ------------------------------- 
 */
-
-#center_area_top_info_area { border-bottom: 1px solid var(--c-light); }
-
-.todo-note {
-  border: solid 5px var(--c-text-on-dark--important);
-  padding: 5px;
-  position: relative;
-  margin-top: 36px;
-  margin-bottom: 100px;
-  min-width: 200px;
-  min-height: 100px;
-  /* display: flex; */
-  display: none;
-  align-items: center;
-  justify-content: center;
-  background-color: var(--c-dark);
-}
-.todo-note::before {
-  content: 'TODO:';
-  display: block;
-  position: absolute;
-  left: -5px;
-  top: -36px;
-  border: inherit;
-  padding: 5px 12px;
-  background-color: inherit;
-}
-
 [data-tutorial-step="0"] .hide-blacksmith,
 [data-tutorial-step="0"] .hide-marketplace
 { display: none }
@@ -430,10 +402,48 @@ div#continue {bottom: 100px;}
 }
 #achievements .click-anywhere { margin-top: 3.5rem; }
 #dialogue-container {
+  max-height: calc(100vh - 300px);
   color: var(--c-text-on-dark);
 }
-#dialogue .dialogue-title, #dialogue .person-img {
-  bottom: 100%;
+#conversation {
+  overflow: auto;
+  min-height: 100px;
+}
+#conversation .dialogue-body {
+  background: white;
+  color: black;
+  border-radius: 0 5px 5px 5px;
+  border: 3px solid white;
+  width: fit-content;
+  max-width: 75%;
+  padding: 0.8rem 2rem;
+  position: relative;
+}
+#conversation .dialogue-body::before {
+  content: '';
+  position: absolute;
+  border-bottom: 1px solid;
+  width: 16px;
+  height: 10px;
+  background-color: white;
+}
+#conversation .dialogue-player {
+  align-self: end;
+  border-radius: 5px 5px 0 5px;
+}
+#conversation .dialogue-player::before {
+  right: -18px;
+  bottom: -4px;
+  clip-path: polygon(0 0, 0 100%, 100% 100%);
+}
+#conversation .dialogue-npc::before {
+  left: -18px;
+  top: -3px;
+  clip-path: polygon(0 0,100% 0,100% 100%);
+}
+#dialogue .person-name, #dialogue .person-img {
+  bottom: calc(100% + 1px);
+  left:-1px;
   color: var(--c-text-on-dark);
 }
 
@@ -447,7 +457,6 @@ div#continue {bottom: 100px;}
   width: 350px;
   height: 300px;
   position: absolute;
-  left:0;
   border-radius:50px 50px 0 0;
 }
 .gender-selection {
@@ -455,7 +464,7 @@ div#continue {bottom: 100px;}
   bottom: 100%;
   display: flex;
   width: 100%;
-  left: 0;
+  left: -1px;
 }
 .gender-selection > div {
   height: 500px;
@@ -471,3 +480,4 @@ div#continue {bottom: 100px;}
 .bg-wakeup-0 { background: #000 }
 .bg-wakeup-1 { background: #1a0202 }
 .bg-wakeup-2 { background: #492828 }
+.white-border--not-hovered:not(:hover) { border-color: white; }
