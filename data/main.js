@@ -27,7 +27,7 @@ const INVESTABLE_ID = {
 }
 /** [name, description, cost, weight] */
 const TU_INVESTABLE = {
-  [INVESTABLE_ID.Legs]: ['', '', 1e2, 1],
+  [INVESTABLE_ID.Legs]: ['', '', 1, 1],
   [INVESTABLE_ID.Arm]: ['', '', 1e5, 1e5],
   [INVESTABLE_ID.Neck]: ['', '', 1e8, 1e8],
   [INVESTABLE_ID.Shoulder]: ['', '', 1, 0],
@@ -40,23 +40,30 @@ const TU_INVESTABLE = {
 const ENUMS = {
   PERSON_ID: {
     VOICE: 1,
+    GUILD_RECEPTIONIST: 'g0',
+    TRAINING_INSTRUCTOR: 'g1',
   },
   DIALOGUE_ID: {
-    CHAPTER_0: {
+    DO_CONTINUE_STATE_ACTION: 'DO_CONTINUE_STATE_ACTION',
+    CLOSE_DIALOGUE: 'CLOSE_DIALOGUE',
+    SHOW_CONTINUE_PROMPT: 'CONTINUE_PROMPT',
+    NOTHING: "[Leave]",
+    CHAPTER_0: { // IDs FOR Popup.dialogue
       CHAPTER_INTRO: 1, // start
       INTRODUCE_CITY: 2, // click on city 1st time
       INTRODUCE_GUILD: 3, // click on guild 1st time
-      GUILD_RECEPTIONIST_JOIN: 4, // talk to receptionist 1st time
+      // GUILD_RECEPTIONIST_JOIN: 4, // talk to receptionist 1st time
       INTRODUCE_TRAINING_GROUNDS: 5, // click on training_grounds 1st time
-      AFTER_FIRST_TU_GAINED: 6, // instructor will give tip how to train faster???
-      AFTER_ENERGY_ZERO_FIRST_TIME: 7, // when energy reaches 0 for the first time
+      // AFTER_FIRST_TU_GAINED: 6, // instructor will give tip how to train faster???
+      // AFTER_ENERGY_ZERO_FIRST_TIME: 7, // when energy reaches 0 for the first time
     },
   },
   LAYER: {
     ADVENTURE: 1,
-    RESEARCH: 2,
-    SETTINGS: 'Settings',
-    STATS: 'Stats'
+    TRAINING_GROUNDS: 2,
+    RESEARCH: 3,
+    SETTINGS: 4,
+    STATS: 5,
   },
   TRAINING: {
     R1: 0,
@@ -71,7 +78,7 @@ const ENUMS = {
     GUILD: 1,
     BLACKSMITH: 2,
     MARKETPLACE: 3,
-    TRAINING_GROUNDS: 4
+    TOWN_HALL: 4
   },
   REGION: {
     BARACUDA: 1,
@@ -81,18 +88,28 @@ const ENUMS = {
     VERMILLION: 1, // city in Baracuda
     STEPPEN: 2, // city in Concord
   },
-  STORY: { // PLAYER READ DIALOGUE, DO NOT SHOW AGAIN
+  STORY: { // PLAYER READ DIALOGUE, DO NOT SHOW AGAIN --- set game.story_state
     CHAPTER_0: {
-      BEFORE_INTRO: 0,
-      BEFORE_CITY: 1,
-      BEFORE_GUILD: 2,
-      BEFORE_INSTRUCTOR: 3,
+      NEXT_STEP__INTRO_CHAPTER: -1,
+      NEXT_STEP__INTRO_CITY: 0,
+      NEXT_STEP__INTRO_GUILD: 2,
+      NEXT_STEP__INTRO_TRAINING_GROUNDS: 3,
+      NEXT_STEP__XXX: 4,
     }
   },
 }
 const TRANSLATIONS_EN = {
+  LAYER: {
+    [ENUMS.LAYER.ADVENTURE]: 'Adventure',
+    [ENUMS.LAYER.TRAINING_GROUNDS]: 'Training Grounds',
+    [ENUMS.LAYER.RESEARCH]: 'Research',
+    [ENUMS.LAYER.STATS]: 'Stats',
+    [ENUMS.LAYER.SETTINGS]: 'Settings',
+  },
   PERSON_NAME_AND_IMAGE: {
     [ENUMS.PERSON_ID.VOICE]: ['mysterious voice', 'person-orb'],
+    [ENUMS.PERSON_ID.GUILD_RECEPTIONIST]: ['Receptionist Ellie', 'person-orb'],
+    [ENUMS.PERSON_ID.TRAINING_INSTRUCTOR]: ['Instructor Raynard', 'person-orb'],
   },
   REGION: {
     [ENUMS.REGION.BARACUDA]: 'Baracuda',
@@ -111,7 +128,7 @@ const TRANSLATIONS_EN = {
     [ENUMS.CITY_PART.GUILD]: 'Guild',
     [ENUMS.CITY_PART.BLACKSMITH]: 'Blacksmith',
     [ENUMS.CITY_PART.MARKETPLACE]: 'Marketplace',
-    [ENUMS.CITY_PART.TRAINING_GROUNDS]: 'Training Grounds',
+    [ENUMS.CITY_PART.TOWN_HALL]: '???',
   },
   INVESTABLE: {
     [INVESTABLE_ID.Legs]: 'Leg',
@@ -136,36 +153,36 @@ const TRANSLATIONS_EN = {
  */
 
 const DEVELOP_SAVEGAME = {
-  game: {
-    story_state: ENUMS.STORY.CHAPTER_0.INSTRUCTOR,
-    body_vars: {
-      unlockedR1: 1,
-      unlockedR11: 1,
-      leftSidebar: 1
-    }
-  },
-  player: {
-    energy: {
-      current: 15,
-    },
-    r1: {
-      training: {
-        units: 0
-      },
-      tu_invest: [[INVESTABLE_ID.Legs, 0]]
-    },
-    training_info: {
-      max_parallel_trainings: 1,
-      training_active: [0]
-    }
-  },
-  world: {
-    currentLayer: [
-      ENUMS.LAYER.ADVENTURE,
-      ENUMS.SUB_LAYER.MAP,
-      ENUMS.CITY_PART.CITY_MAP
-    ]
-  }
+  // game: {
+  //   story_state: ENUMS.STORY.CHAPTER_0.INSTRUCTOR,
+  //   body_vars: {
+  //     unlockedR1: 1,
+  //     unlockedR11: 1,
+  //     leftSidebar: 1
+  //   }
+  // },
+  // player: {
+  //   energy: {
+  //     current: 15,
+  //   },
+  //   r1: {
+  //     training: {
+  //       units: 0
+  //     },
+  //     tu_invest: [[INVESTABLE_ID.Legs, 0]]
+  //   },
+  //   training_info: {
+  //     max_parallel_trainings: 1,
+  //     training_active: [0]
+  //   }
+  // },
+  // world: {
+  //   currentLayer: [
+  //     ENUMS.LAYER.ADVENTURE,
+  //     ENUMS.SUB_LAYER.MAP,
+  //     ENUMS.CITY_PART.CITY_MAP
+  //   ]
+  // }
 };
 const HTMLDivElement = document.createElement('div');
 const HTMLButtonElement = document.createElement('button');
@@ -212,13 +229,17 @@ function updateElements(elements, value, attribute) {
   });
 }
 function clickListener(el, fn, thisCtx) {
-  el.addEventListener('click', ev => fn.call(thisCtx ?? window,ev));
+  el.addEventListener('click', ev => {
+    ev.stopPropagation();
+    ev.preventDefault();
+    fn.call(thisCtx ?? window,ev)}
+  );
 }
 
 function getSavegame() {
   const savegame = Settings.getLocalSave();
-  // return savegame;
-  return DEVELOP_SAVEGAME;
+  return savegame || {};
+  // return DEVELOP_SAVEGAME;
 }
 
 function id(s) { return document.getElementById(s) }
@@ -359,6 +380,7 @@ class Settings {
   initUiListeners() {
     q('[data-save-local]').addEventListener('click', Settings.saveLocal, this);
     clickListener(q('[data-download-savefile]'), Settings.downloadSavefile, this);
+    clickListener(q('[data-reset-savefile]'), Settings.resetSavefile, this);
     q('[data-load-savefile]').addEventListener('change', Settings.askUserToSelectASavefile.bind(this));
   }
 
@@ -403,9 +425,19 @@ class Settings {
     const filename = 'incremental-adventure-__' + new Date().toLocaleString() + '.saveFile';
     download(Settings.get_current_gameData_as_encrypted_string(), 'text/plain', filename);
   }
+  static resetSavefile() {
+    if (!confirm('Are you sure you want to reset your savefile?')) return;
+    localStorage.removeItem('incremental-adventure-save');
+    DATA.world = new World();
+    DATA.game = new Game();
+    DATA.ui = new Ui();
+    DATA.player = new Player();
+    DATA.settings = new Settings();
+    console.log('savefile reset');
+  }
 
   /** TODO: maybe change to indexeddb */
-  static saveLocal() { localStorage.setItem('incremental-adventure-save', Settings.get_current_gameData_as_encrypted_string()); }
+  static saveLocal() { localStorage.setItem('incremental-adventure-save', Settings.get_current_gameData_as_encrypted_string()); console.log('game saved in localStorage'); }
   static getLocalSave() {
     const save = localStorage.getItem('incremental-adventure-save');
     if (!save) return null;
@@ -427,7 +459,8 @@ const DATA = {
 
 class Game {
   __game_loop_id = 0;
-  story_state = -1;
+  /** ENUMS.STORY */
+  story_state = ENUMS.STORY.CHAPTER_0.NEXT_STEP__INTRO_CHAPTER;
   body_vars = Game.defaultBodyVars;
   _previousViewValues = {};
   _gameLoopCounter = 0;
@@ -445,12 +478,15 @@ class Game {
     unlockedR17: 0,
     unlockedR18: 0,
     unlockedR2: 0,
-    unlockedAdventureTab: 1,
-    unlockedTrainingTab: 1,
+    unlockedAdventureTab: 0,
+    unlockedTrainingTab: 0,
     unlockedF2: 0,
     unlockedEnergyTGTab:0,
+    unlockedCity1: 1,
+    unlockedCity2: 0,
     tutorialStep: 0,
-    leftSidebar: 0
+    leftSidebar: 0,
+    rightSidebar: 0
   }
 
   constructor(savegame = {}) {
@@ -465,7 +501,7 @@ class Game {
   }
   
   loadFromSavegame(savegame = {}) {
-    this.story_state = savegame.story_state ?? ENUMS.STORY.CHAPTER_0.BEFORE_INTRO;
+    this.story_state = savegame.story_state ?? ENUMS.STORY.CHAPTER_0.NEXT_STEP__INTRO_CHAPTER;
     if (typeof savegame.body_vars === 'object') this.body_vars = { ...Game.defaultBodyVars, ...savegame.body_vars };
 
     this.init();
@@ -477,12 +513,17 @@ class Game {
     this.init_game_loop();
   }
 
+  changeBodyVar(bodyVar, val) {
+    this.body_vars[bodyVar] = val;
+    DATA.ui.onChange_bodyVars(this.body_vars);
+  }
+
   onChangeBodyVars() {
     DATA.ui.onChange_bodyVars(this.body_vars);
   }
 
   check_should_show_intro() {
-    if (this.story_state === ENUMS.STORY.CHAPTER_0.BEFORE_INTRO) {
+    if (this.story_state === ENUMS.STORY.CHAPTER_0.NEXT_STEP__INTRO_CHAPTER) {
       DATA.ui.popup.openDialogue(ENUMS.DIALOGUE_ID.CHAPTER_0.CHAPTER_INTRO);
     }
   }
@@ -526,7 +567,7 @@ class Player {
   status = {
     training_info: {
       max_parallel_trainings: 1,
-      training_active: [0,0]
+      training_active: [0] // [r1,r2,r3,r4] -- training buttons, replace with 0/1
     }
   }
 
@@ -632,14 +673,14 @@ class Player {
         [INVESTABLE_ID.Facial]: this.r1.tu_invest[INVESTABLE_ID.Facial].bought.p(),
         [INVESTABLE_ID.Chewing]: this.r1.tu_invest[INVESTABLE_ID.Chewing].bought.p(),
         investable_cost: {
-          [INVESTABLE_ID.Legs]: this.r1.tu_invest[INVESTABLE_ID.Legs].cost,
-          [INVESTABLE_ID.Arm]: this.r1.tu_invest[INVESTABLE_ID.Arm].cost,
-          [INVESTABLE_ID.Neck]: this.r1.tu_invest[INVESTABLE_ID.Neck].cost,
-          [INVESTABLE_ID.Shoulder]: this.r1.tu_invest[INVESTABLE_ID.Shoulder].cost,
-          [INVESTABLE_ID.UpperAbdomen]: this.r1.tu_invest[INVESTABLE_ID.UpperAbdomen].cost,
-          [INVESTABLE_ID.LowerAbdomen]: this.r1.tu_invest[INVESTABLE_ID.LowerAbdomen].cost,
-          [INVESTABLE_ID.Facial]: this.r1.tu_invest[INVESTABLE_ID.Facial].cost,
-          [INVESTABLE_ID.Chewing]: this.r1.tu_invest[INVESTABLE_ID.Chewing].cost,
+          [INVESTABLE_ID.Legs]: this.r1.tu_invest[INVESTABLE_ID.Legs].cost.p(),
+          [INVESTABLE_ID.Arm]: this.r1.tu_invest[INVESTABLE_ID.Arm].cost.p(),
+          [INVESTABLE_ID.Neck]: this.r1.tu_invest[INVESTABLE_ID.Neck].cost.p(),
+          [INVESTABLE_ID.Shoulder]: this.r1.tu_invest[INVESTABLE_ID.Shoulder].cost.p(),
+          [INVESTABLE_ID.UpperAbdomen]: this.r1.tu_invest[INVESTABLE_ID.UpperAbdomen].cost.p(),
+          [INVESTABLE_ID.LowerAbdomen]: this.r1.tu_invest[INVESTABLE_ID.LowerAbdomen].cost.p(),
+          [INVESTABLE_ID.Facial]: this.r1.tu_invest[INVESTABLE_ID.Facial].cost.p(),
+          [INVESTABLE_ID.Chewing]: this.r1.tu_invest[INVESTABLE_ID.Chewing].cost.p(),
         },
         milestoneInfo: Object.fromEntries(Object.values(this.r1.tu_invest).map(i => 
           [i.id, i.getMilestoneInfoForUi]
@@ -813,13 +854,29 @@ class Upgrade {
   isUnlocked = false;
   name = '';
   description = '';
-  cost = 0;
+  baseCost = 0;
+  /** immer wenn bought geändert wird, brauch ich den milestone check, daher getter/setter */
+  _bought;
+  get bought() { return this._bought ?? new Decimal(0) }
+  set bought(val) {
+    this._bought = val;
+    this.newMilestoneReachedCheck();
+  }
 
-  constructor(id, name, description, cost) {
+  constructor(id, name, description, baseCost, costIncrease = [{ at: 10, by: 1.5 }, { at: 100, by: 10 }]) {
     this.id = id;
     this.name = name;
     this.description = description;
-    this.cost = cost;
+    this.baseCost = baseCost;
+    this.costIncrease = costIncrease; // [{ at: 10, by: 1.5 }, ...] - when to increase cost and by how much
+  }
+
+  get cost() {
+    let cost = new Decimal(this.baseCost);
+    this.costIncrease.forEach(({ at, by }) => {
+      if (this.bought.gte(at)) cost = cost.times(by);
+    });
+    return cost;
   }
 }
 class TUInvest extends Upgrade {
@@ -829,13 +886,6 @@ class TUInvest extends Upgrade {
   get weight() {
     return this.baseWeight.times(this.currentMilestoneMulti);
   };
-  /** immer wenn bought geändert wird, brauch ich den milestone check, daher getter/setter */
-  _bought;
-  get bought() { return this._bought ?? new Decimal(0) }
-  set bought(val) {
-    this._bought = val;
-    this.newMilestoneReachedCheck();
-  }
 
   /** @type {{ requirement: string, effect: string, reached: boolean }[]} */
   get getMilestoneInfoForUi() {
@@ -866,6 +916,7 @@ class TUInvest extends Upgrade {
     DATA.player.r1.training.units = DATA.player.r1.training.units.minus(this.cost);
     this.isPurchaseable = DATA.player.r1.training.units.gte(this.cost);
     this.bought = this.bought.plus(1);
+    DATA.game.changeBodyVar('rightSidebar', 1);
 
     this.checkEffectOfPurchase();
   }
@@ -885,8 +936,7 @@ class TUInvest extends Upgrade {
     const conditionFulfilled = this.bought.gte(100);
     if (!conditionFulfilled) return;
     DATA.player.r1.unlockableIndex++;
-    DATA.game.body_vars.unlockedR12 = 1;
-    DATA.game.onChangeBodyVars();
+    DATA.game.changeBodyVar('unlockedR12', 1);
     DATA.ui.popup.achievementNotify(0);
   }
 
@@ -975,6 +1025,13 @@ class Ui {
   popup = new Popup();
   Elements = {
     layerEl: HTMLDivElement,
+    city: {
+      guild: {
+        talk_to_Receptionist: HTMLButtonElement,
+        talk_to_Instructor: HTMLButtonElement,
+        attempt_adventurer_exam: HTMLButtonElement
+      }
+    },
     r1: {
       nextUnlockableEl: HTMLDivElement,
       base: [HTMLDivElement],
@@ -1011,11 +1068,13 @@ class Ui {
   }
 
   loadFromSavegame(savegameUi = {}) {
-    // init local vars with savegame vars
+    this.popup.loadFromSavegame(savegameUi.popup);
   }
 
   getSaveData() {
-    return {};
+    return {
+      popup: this.popup.getSaveData(),
+    };
   }
 
   initLocalVars() {
@@ -1057,6 +1116,10 @@ class Ui {
     this.Elements.energy.current = all('[data-energy-current]');
     this.Elements.energy.perSec = all('[data-energy-per-sec]');
     this.Elements.energy.bar = all('[data-energy-bar]');
+
+    // city -- guild -- actions
+    const guildEls = this.Elements.city.guild;
+    [guildEls.talk_to_Receptionist, guildEls.talk_to_Instructor ,guildEls.attempt_adventurer_exam] = all('#city_121_guild .actions button');
   }
 
   updatePlayerValuesInView(valueDiff) {
@@ -1126,20 +1189,27 @@ class Ui {
   initUiListeners() {
     // Layer Nav
     clickListener(id('navigate_to_1'), () => this.selectLayer(ENUMS.LAYER.ADVENTURE), this); // adventure Layer
-    clickListener(id('navigate_to_2'), () => this.selectLayer(ENUMS.LAYER.RESEARCH), this); // research Layer
-    clickListener(id('navigate_to_Stats'), () => this.selectLayer(ENUMS.LAYER.STATS), this); // settings Layer
+    clickListener(id('navigate_to_2'), () => this.selectLayer(ENUMS.LAYER.TRAINING_GROUNDS), this); // Training Grounds Layer
+    clickListener(id('navigate_to_3'), () => this.selectLayer(ENUMS.LAYER.RESEARCH), this); // research Layer
+    clickListener(id('navigate_to_Stats'), () => this.selectLayer(ENUMS.LAYER.STATS), this); // stats Layer
     clickListener(id('navigate_to_Settings'), () => this.selectLayer(ENUMS.LAYER.SETTINGS), this); // settings Layer
     clickListener(id('nav_to_11'), () => this.selectLayer(ENUMS.LAYER.ADVENTURE, ENUMS.SUB_LAYER.MAP), this); // map, inside of adventure Layer
-    clickListener(id('nav_to_12'), this.onPressCity, this); // city, inside of map
+    clickListener(id('nav_to_12'), () => this.onPressCity(ENUMS.CITY.VERMILLION), this); // city, inside of map
+    clickListener(id('nav_to_13'), () => this.onPressCity(ENUMS.CITY.STEPPEN), this); // city#2, inside of map
     
     // city Nav
     clickListener(id('nav_to_city_0'), () => this.selectCityPart(ENUMS.CITY_PART.CITY_MAP), this); // city-map, inside of city
     clickListener(id('nav_to_city_1'), this.onPressGuild, this); // guild, inside of city
     clickListener(id('nav_to_city_2'), () => this.selectCityPart(ENUMS.CITY_PART.BLACKSMITH), this); // Blacksmith, inside of city
     clickListener(id('nav_to_city_3'), () => this.selectCityPart(ENUMS.CITY_PART.MARKETPLACE), this); // Marketplace, inside of city
+    clickListener(id('nav_to_city_townhall'), () => this.selectCityPart(ENUMS.CITY_PART.TOWN_HALL), this); // Town Hall, inside of city
+
+    // toggle training buttons
     clickListener(this.Elements.trainingButtons[ENUMS.TRAINING.R1], () => DATA.player.toggleTraining(ENUMS.TRAINING.R1), this);
 
-
+    // guild actions
+    clickListener(this.Elements.city.guild.talk_to_Receptionist, () => DATA.ui.popup.beginDialogue(ENUMS.PERSON_ID.GUILD_RECEPTIONIST), this);
+    clickListener(this.Elements.city.guild.talk_to_Instructor, () => DATA.ui.popup.beginDialogue(ENUMS.PERSON_ID.TRAINING_INSTRUCTOR), this);
   }
 
   changeTrainingStatusButton(index, state, label) {
@@ -1156,16 +1226,24 @@ class Ui {
   }
 
   selectCityPart(part) {
+    const preventBeforeGuildVisit = [ENUMS.CITY_PART.BLACKSMITH, ENUMS.CITY_PART.MARKETPLACE, ENUMS.CITY_PART.TOWN_HALL];
+    if (preventBeforeGuildVisit.includes(part) && DATA.game.body_vars.unlockedTrainingTab === 0) {
+      return this.popup.notify('you should visit the guild first');
+    }
     this.selectLayer(ENUMS.LAYER.ADVENTURE, ENUMS.SUB_LAYER.CITY, part);
   }
 
-  onPressCity() {
-    if (DATA.game.story_state === ENUMS.STORY.CHAPTER_0.BEFORE_CITY) DATA.ui.popup.openDialogue(ENUMS.DIALOGUE_ID.CHAPTER_0.INTRODUCE_CITY);
+  onPressCity(selectedCity = ENUMS.CITY.VERMILLION) {
+    if (DATA.game.story_state === ENUMS.STORY.CHAPTER_0.NEXT_STEP__INTRO_CITY) DATA.ui.popup.openDialogue(ENUMS.DIALOGUE_ID.CHAPTER_0.INTRODUCE_CITY);
+    const cityUnlocked = DATA.game.body_vars['unlockedCity'+selectedCity] === 1;
+    if (!cityUnlocked) {
+      return this.popup.notify('You have not yet unlocked the city of ' + TRANSLATIONS_EN.CITY[selectedCity] + '.');
+    }
     this.selectCityPart(ENUMS.CITY_PART.CITY_MAP);
   }
 
   onPressGuild() {
-    if (DATA.game.story_state === ENUMS.STORY.CHAPTER_0.BEFORE_GUILD) DATA.ui.popup.openDialogue(ENUMS.DIALOGUE_ID.CHAPTER_0.INTRODUCE_GUILD);
+    if (DATA.game.story_state === ENUMS.STORY.CHAPTER_0.NEXT_STEP__INTRO_GUILD) DATA.ui.popup.openDialogue(ENUMS.DIALOGUE_ID.CHAPTER_0.INTRODUCE_GUILD);
     this.selectCityPart(ENUMS.CITY_PART.GUILD);
   }
   
@@ -1175,6 +1253,12 @@ class Ui {
 }
 
 class Popup {
+  isClickAnywhereActive = false;
+  // NPCS
+  npcs = {
+    [ENUMS.PERSON_ID.GUILD_RECEPTIONIST]: new GUILD_RECEPTIONIST(),
+    [ENUMS.PERSON_ID.TRAINING_INSTRUCTOR]: new TRAINING_INSTRUCTOR(),
+  };
   // notification Elements
   notificationContainer = HTMLDivElement;
   notificationEls = [HTMLDivElement];
@@ -1183,11 +1267,12 @@ class Popup {
   achievementEl = [HTMLDivElement];
 
   // DialogueState
-  currentState = [0,0];
+  currentState = [ENUMS.DIALOGUE_ID.CHAPTER_0.CHAPTER_INTRO,0];
 
   constructor() {
     this.dialogueEls = {
       dialogueMainEl: id('dialogue'),
+      dismiss: id('dismiss_dialogue'),
       npcTemplate: id('dialogue-template-npc'),
       playerTemplate: id('dialogue-template-player'),
       conversationArea: id('conversation'),
@@ -1203,16 +1288,55 @@ class Popup {
     this.achievementEl = [id('achievements'), q('#achievements [data-achievement-title]'), q('#achievements .body')];
     this.achievementEl[0].addEventListener('click', () => this.achievementEl[0].classList.add('d-none'));
     this.dialogueEls.playerResponse.actions.forEach((btn, index) => {
-      clickListener(btn, ev => this.actionButtonPressed(index, btn), this);
+      clickListener(btn, ev => {ev.preventDefault() ;this.actionButtonPressed(index, btn)}, this);
+    });
+
+    // dismiss on click anywhere, if dismiss visible
+    document.body.addEventListener('click', (ev) => {
+      // to prevent weird bubbling bug
+      // const clickedActionBtn = ev.target.classList.contains('d_action');
+      // if (clickedActionBtn || this.dialogueEls.dismiss.classList.contains('d-none')) return;
+      if (!this.isClickAnywhereActive) return;
+
+      this.continueState();
     });
     this.initNotifyQueueChecker();
-    this.openDialogue(ENUMS.DIALOGUE_ID.CHAPTER_0.CHAPTER_INTRO);
   }
 
-  openDialogue(nr,subnr=0, keep = false) {
-    this.currentState = [nr, subnr];
+  loadFromSavegame(popupSave = {}) {
+    if (popupSave.npcs?.length) {
+      popupSave.npcs.forEach(([pid,vars]) => {
+        vars.forEach((val,index) => {
+          this.npcs[pid].dialogueVars[index] = val;
+        })
+      })
+    }
+  }
+
+  getSaveData() {
+    return {
+      npcs: Object.values(this.npcs).map(npc => [npc.personId, npc.dialogueVars]),
+    }
+  }
+
+  beginDialogue(person) {
+    this.dialogue[person] = this.npcs[person].getDialogueOptions();
+    this.openDialogue(person);
+    // switch (person) {
+    //   case ENUMS.PERSON_ID.GUILD_RECEPTIONIST:
+    //     break;
+    //   case ENUMS.PERSON_ID.TRAINING_INSTRUCTOR:
+    //     this.dialogue[person] = this.npcs[person].getDialogueOptions();
+    //     this.openDialogue(ENUMS.PERSON_ID.GUILD_RECEPTIONIST);
+    //     break;
+    // }
+  }
+
+  openDialogue(dialogueID,subnr=0, keep = false) {
+    this.isClickAnywhereActive = false;
+    this.currentState = [dialogueID, subnr];
     if (!keep) this.dialogueEls.conversationArea.replaceChildren(); // remove all dialoge items
-    const {person, text, actions, preText } = this.dialogue[nr][subnr];
+    const {person, text, actions, preText } = this.dialogue[dialogueID][subnr];
     const [name,image] = TRANSLATIONS_EN.PERSON_NAME_AND_IMAGE[person];
     this.dialogueEls.dialogueMainEl.classList.remove('d-none');
     this.dialogueEls.personName.textContent = name;
@@ -1224,7 +1348,13 @@ class Popup {
       this.dialogueEls.playerResponse.preText.textContent = preText;
     }
     this.dialogueEls.playerResponse.actions.forEach(action => action.classList.add('d-none'));
-    actions.forEach((action,index) => {
+    let options = typeof actions === 'function' ? actions() : actions;
+    options.forEach((action,index) => {
+      if (action.text === ENUMS.DIALOGUE_ID.SHOW_CONTINUE_PROMPT) {
+        this.dialogueEls.dismiss.classList.remove('d-none');
+        this.isClickAnywhereActive = true;
+        return;
+      }
       const btn = this.dialogueEls.playerResponse.actions[index];
       btn.textContent = action.text;
       btn.classList.remove('d-none');
@@ -1232,10 +1362,11 @@ class Popup {
   }
 
   msg(msg, by) {
-    const npcNode = this.dialogueEls[by === 'npc' ? 'npcTemplate' : 'playerTemplate'].cloneNode();
-    npcNode.classList.remove('d-none');
-    npcNode.textContent = msg;
-    this.dialogueEls.conversationArea.appendChild(npcNode);
+    const textNode = this.dialogueEls[by === 'npc' ? 'npcTemplate' : 'playerTemplate'].cloneNode();
+    textNode.classList.remove('d-none');
+    textNode.textContent = msg;
+    this.dialogueEls.conversationArea.appendChild(textNode);
+    setTimeout(() => textNode.scrollIntoView());
   }
   playerMsg(msg) { this.msg(msg, 'player'); }
   npcMsg(msg) { this.msg(msg, 'npc'); }
@@ -1254,7 +1385,6 @@ class Popup {
     this.removeThemes(nextNotificationElement);
     this.addTheme(nextNotificationElement, theme ?? 'theme-white');
     this.lastElementUsedIndex = this.lastElementUsedIndex === 3 ? 0 : this.lastElementUsedIndex+1;
-    console.log(nextNotificationElement.id);
     nextNotificationElement.textContent = nextNotification;
     const [style, to, from] = ['opacity', '0', '1'];
     nextNotificationElement.classList.remove('d-none'); // turn visible
@@ -1282,10 +1412,18 @@ class Popup {
   actionButtonPressed(btnIndex, btn) {
     const [nr, subNr] = this.currentState;
     this.playerMsg(btn.textContent);
-    this.dialogue[nr][subNr].actions[btnIndex].action.call(this);
+    const action = this.dialogue[nr][subNr].actions[btnIndex].action;
+    if (action === ENUMS.DIALOGUE_ID.DO_CONTINUE_STATE_ACTION) {
+      this.continueState();
+    } else if (action === ENUMS.DIALOGUE_ID.CLOSE_DIALOGUE) {
+      this.closeDialogue();
+    } else {
+      action.bind(this)(); // call the action, with this as context
+    }
   }
 
   dialogue = {
+    [ENUMS.PERSON_ID.GUILD_RECEPTIONIST]: undefined,
     [ENUMS.DIALOGUE_ID.CHAPTER_0.CHAPTER_INTRO]: { // Beginning of the game
       title: 'Chapter 0 - Becoming an Adventurer!',
       0: {
@@ -1310,14 +1448,14 @@ class Popup {
         actions: [
           { text: 'be rich!', action: () => this.motivationChoice(1) },
           { text: 'be strong!', action: () => this.motivationChoice(2) },
-          { text: 'find friends!', action: () => this.motivationChoice(3) },
+          { text: 'become popular!', action: () => this.motivationChoice(3) },
           { text: 'learn new things!', action: () => this.motivationChoice(4) },
         ]
       },
       4: {
         person: ENUMS.PERSON_ID.VOICE,
         text: "Alright!\n\n\nLet's not waste any more time, and head out there!\nFirst Stop: "+TRANSLATIONS_EN.CITY[ENUMS.CITY.VERMILLION]+", the closest city in the region of "+TRANSLATIONS_EN.REGION[ENUMS.REGION.BARACUDA]+".",
-        actions: [ { text: 'Lets go!', action: this.closeDialogue } ]
+        actions: [ { text: 'Lets go!', action: () => this.setStoryStateAndClose(ENUMS.STORY.CHAPTER_0.NEXT_STEP__INTRO_CITY) } ]
       }
     },
     [ENUMS.DIALOGUE_ID.CHAPTER_0.INTRODUCE_CITY]: { // entering the city
@@ -1357,8 +1495,142 @@ class Popup {
     this.continueState();
   }
 
-  continueState() { this.openDialogue(...[this.currentState[0], ++this.currentState[1]], true); }
+  continueState() {
+    this.dialogueEls.dismiss.classList.add('d-none');
+    this.openDialogue(...[this.currentState[0], ++this.currentState[1]], true);
+  }
   closeDialogue() { this.dialogueEls.dialogueMainEl.classList.add('d-none'); }
+  set1AndClose(bodyVar) { DATA.game.body_vars.changeBodyVar(bodyVar, 1); this.closeDialogue(); }
+  setStoryStateAndClose(story_state) { DATA.game.story_state = story_state; this.closeDialogue(); }
+}
+
+class NPC {
+  personId = 'XXX';
+  dialogueVars = [];
+
+  createSimpleDialogue() {
+    // to be implemented...
+  }
+}
+class TRAINING_INSTRUCTOR extends NPC {
+  personId = ENUMS.PERSON_ID.TRAINING_INSTRUCTOR;
+  dialogueVars = [0];
+  getDialogueOptions() {
+    const requirementsMetForInitialDialogue = DATA.game.story_state === ENUMS.STORY.CHAPTER_0.NEXT_STEP__INTRO_TRAINING_GROUNDS;
+    if (this.dialogueVars[0] === 0 && requirementsMetForInitialDialogue) return this.initialDialogueOptions();
+
+    return {0: {
+      person: this.personId,
+      text: 'You need something?',
+      actions: [ Dialogue.nothingAction ]
+    }};
+  }
+
+  initialDialogueOptions() {
+    const onEnd = () => {
+      this.dialogueVars[0] = 1;
+      DATA.game.changeBodyVar('unlockedTrainingTab', 1);
+      DATA.game.changeBodyVar('leftSidebar', 1);
+      DATA.game.changeBodyVar('unlockedAdventureTab', 1);
+      DATA.game.changeBodyVar('unlockedR1', 1);
+      DATA.game.changeBodyVar('unlockedR11', 1);
+      
+      DATA.ui.popup.setStoryStateAndClose(ENUMS.STORY.CHAPTER_0.NEXT_STEP__XXX);
+    };
+    const person = this.personId;
+    return {
+      0: {
+        person,
+        text: 'Yeah?',
+        actions: [ { text: 'I want to become an adventurer, and was told to come here.', action: ENUMS.DIALOGUE_ID.DO_CONTINUE_STATE_ACTION } ]
+      },
+      1: {
+        person,
+        text: `Oh? And you think you can just waltz in here and become an adventurer?`,
+        actions: [ { text: 'I...', action: ENUMS.DIALOGUE_ID.DO_CONTINUE_STATE_ACTION } ]
+      },
+      2: {
+        person,
+        text: "I was just kidding, hahha!\n\nOf course you can become an adventurer, but first you need to pass the physical exam.",
+        actions: [ Dialogue.continueAction ]
+      },
+      3: {
+        person,
+        text: "I'll help you get in shape, for starters you can do some basic exercises over there, and then come back to me.",
+        actions: [
+          { text: "You're kinda rude", action: ENUMS.DIALOGUE_ID.DO_CONTINUE_STATE_ACTION },
+          { text: "Alright! Let's do this!", action: onEnd },
+        ]
+      },
+      4: {
+        person,
+        text: "Oh? Was I? Sorry about that, I didn't mean anything by it.",
+        actions: [
+          { text: "Whatever, i'll just begin with my training...", action: onEnd },
+          { text: "I see, alright then. I'll begin with my training.", action: onEnd },
+        ]
+      }
+    }
+  }
+}
+
+class GUILD_RECEPTIONIST extends NPC {
+  personId = ENUMS.PERSON_ID.GUILD_RECEPTIONIST;
+  // [exam, ]
+  dialogueVars = [0];
+  getDialogueOptions() {
+    if (!this.dialogueVars[0]) return this.initialDialogueOptions();
+
+    // TODO: Add more dialogue options after initial dialogue...
+    return {0: {
+      person: this.personId,
+      text: 'Hello! How may i be of service?',
+      actions: [ Dialogue.nothingAction ]
+    }};
+  }
+
+  initialDialogueOptions() {
+    const onEnd = () => {
+      this.dialogueVars[0] = 1;
+      DATA.ui.popup.setStoryStateAndClose(ENUMS.STORY.CHAPTER_0.NEXT_STEP__INTRO_TRAINING_GROUNDS);
+    };
+    const person = this.personId;
+    return {
+      0: {
+        person,
+        text: 'Hello! Oh! A new Face? How may i be of service?',
+        actions: [ { text: 'I would like to become an adventurer!', action: ENUMS.DIALOGUE_ID.DO_CONTINUE_STATE_ACTION } ]
+      },
+      1: {
+        person,
+        text: `Oh? That is wonderful to hear. We, the guild of ${TRANSLATIONS_EN.CITY[ENUMS.CITY.VERMILLION]} are always happy to welcome new members in our midst!`,
+        actions: [ Dialogue.continueAction ]
+      },
+      2: {
+        person,
+        text: "But to officially make you a member, you'll need to pass the Adventurer physical exam",
+        actions: [ { text: 'Sign me up then!', action: ENUMS.DIALOGUE_ID.DO_CONTINUE_STATE_ACTION } ]
+      },
+      3: {
+        person,
+        text: "No signup necessary, just head on over to our Training Grounds, straight to that door, and look for an old man. That'll be our instructor Raynard.",
+        actions: [ Dialogue.continueAction ]
+      },
+      4: {
+        person,
+        text: "He will help you get in shape for the physical exam, if you need to, and then test your skills.",
+        actions: [
+          { text: "Thank you so much, i'll go there right away.", action: onEnd },
+          { text: "I'll be back in no time", action: onEnd },
+        ]
+      }
+    }
+  }
+}
+
+class Dialogue {
+  static continueAction = { text: ENUMS.DIALOGUE_ID.SHOW_CONTINUE_PROMPT, action: ENUMS.DIALOGUE_ID.DO_CONTINUE_STATE_ACTION };
+  static nothingAction = { text: ENUMS.DIALOGUE_ID.NOTHING, action: ENUMS.DIALOGUE_ID.CLOSE_DIALOGUE };
 }
 
 class Achievement {
@@ -1368,7 +1640,7 @@ class Achievement {
   }
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+window.addEventListener('DOMContentLoaded', () => {
   const savegame = getSavegame();
   DATA.ui = new Ui(savegame.ui);
   DATA.settings = new Settings(savegame.settings);

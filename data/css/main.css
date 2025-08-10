@@ -87,7 +87,8 @@ button, .btn {
   border-radius: 11px;
   border: 4px solid var(--c-light);
 }
-button:hover, .btn:hover {
+label { cursor: inherit; }
+button:hover:not(.cursor-normal), .btn:hover:not(.cursor-normal) {
   background: var(--c-light);
   border-color: var(--c-darker);
   cursor: pointer;
@@ -96,7 +97,7 @@ button.disabled:hover, .btn.disabled:hover {
   background: var(--c-dark);
   border-color: var(--c-darker);
 }
-button:active, .btn:active {
+button:active:not(.cursor-normal), .btn:active:not(.cursor-normal) {
   background-color: var(--c-dark);
 }
 .progress-bar {
@@ -171,8 +172,8 @@ button:active, .btn:active {
 [data-show-layer="1"] .show-on-layer-1,
 [data-show-layer="2"] .show-on-layer-2, 
 [data-show-layer="3"] .show-on-layer-3,
-[data-show-layer="Settings"] .show-on-layer-settings,
-[data-show-layer="Stats"] .show-on-layer-stats,
+[data-show-layer="4"] .show-on-layer-settings,
+[data-show-layer="5"] .show-on-layer-stats,
 [data-show-layer="1"][data-show-sub-layer="1"] .show-on-layer-1-1,
 [data-show-layer="1"][data-show-sub-layer="2"] .show-on-layer-1-2,
 [data-show-layer="2"][data-show-sub-layer="1"] .show-on-layer-2-1,
@@ -208,6 +209,7 @@ button:active, .btn:active {
 /*
   ---- Ressources / right sidebar ----
 */
+[data-right-sidebar="0"] #right_sidebar { display: none !important; }
 #right_sidebar {
   flex-basis: 100px;
   border-left: 1px solid var(--c-light);

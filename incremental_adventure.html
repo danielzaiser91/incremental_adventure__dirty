@@ -79,7 +79,7 @@
         </div>
       </div>
       <div id="center_area_main" class="flex-1 p-relative">
-        <div id="center_settings" class="show-on-layer-stats h-100">
+        <div id="center_stats" class="show-on-layer-stats h-100">
           <div class="d-flex center-xy h-100">
             <div class="todo-note">
               Stats...
@@ -87,26 +87,29 @@
           </div>
         </div>
         <div id="center_settings" class="show-on-layer-settings h-100">
-          <div class="d-flex center-xy h-100">
-            <div class="todo-note">
+          <div class="d-flex center-xy h-100 flex-col">
+            <div class="todo-note d-flex">
               Settings...
             </div>
-            <div>
+            <div class="d-flex">
               <label for="save">Save the game in the Browser-Cache</label>
               <button data-save-local id="save">save</button>
             </div>
-            <button data-download-savefile>Download your savefile</button>
-            <div>
+            <div class="d-flex"><button data-download-savefile>Download your savefile</button></div>
+
+            <div class="d-flex">
               <label for="files" class="btn">Load a savefile</label>
               <input id="files" style="display:none;" type="file" data-load-savefile accept=".saveFile,text/plain">
             </div>
+
+            <div class="d-flex"><button data-reset-savefile>Reset your savefile</button></div>
           </div>
         </div>
         <div id="center_11_map" class="show-on-layer-1-1 h-100 p-relative">
           <div class="bg-img map1-bg p-absolute"></div>
           <div id="map_buttons" class="d-flex center-xy h-100">
             <button id="nav_to_12">City</button>
-            <button id="nav_to_12">City</button>
+            <button id="nav_to_13">City#2</button>
           </div>
         </div>
         <div id="center_12_city" class="show-on-layer-1-2 h-100 p-relative">
@@ -115,7 +118,7 @@
             <div id="city_120_city_map" class="show-on-city-part-0  w-100 h-100">
               <div class="d-flex h-100">
                 <div class="city-parts d-flex w-100 flex-wrap">
-                  <div class="box-blacksmith">
+                  <div class="box-blacksmith bg-dim">
                     <div class="wh-75 p-relative">
                       <div class="pin-container p-absolute">
                         <i class="pin x2 p-absolute">📍</i>
@@ -123,7 +126,7 @@
                       </div>
                     </div>
                   </div>
-                  <div class="box-marketplace">
+                  <div class="box-marketplace bg-dim">
                     <div class="wh-75 p-relative">
                       <div class="pin-container p-absolute">
                         <button id="nav_to_city_3" class="theme-grey">Marketplace</button>
@@ -139,7 +142,7 @@
                       </div>
                     </div>
                   </div>
-                  <div class="box-marketplace">
+                  <div class="box-marketplace bg-dim">
                     <div class="wh-75 p-relative">
                       <div class="pin-container p-absolute">
                         <button id="nav_to_city_townhall" class="theme-grey">???</button>
@@ -183,15 +186,15 @@
               <div class="training_ressource_menu p-absolute d-flex w-100">
                 <!-- color them according to ressource -->
                 <button class="theme-r1">r1</button>
-                <button class="theme-r2">r2</button>
+                <button class="theme-r2 unlocked-r2">r2</button>
                 <div class="flex-1"></div>
-                <button class="theme-energy unlocked-energy-tg-tab">Energy</button>
+                <button class="theme-energy unlocked-energy-tg-tab cursor-normal">Energy</button>
               </div>
               <div class="action-layer-bg p-absolute bg-img"></div>
               <div class="training-grounds-top-part">
                 <div class="d-flex w-100 center-y gap-xs">
                   <div class="unlocked-r1 theme-r1 flex-1">
-                    <div id="begin_training_r1" class="d-flex btn center-xy">
+                    <div id="begin_training_r1" class="d-flex btn center-xy pointer">
                       <label class="flex-1">begin r1 training</label>
                       <div class="progress-bar self-center d-flex center-y flex-1 x1">
                         <div data-r1-tu-bar class="bar"></div>
@@ -348,7 +351,7 @@
     <div class="notification d-none">4</div>
   </div>
 </div>
-<div id="achievements" class="d-flex p-fixed bottom-0 center-xy z-1 h-100 d-none bg-dim">
+<div id="achievements" class="d-flex p-fixed bottom-0 center-xy z-1 h-100 d-none bg-dim w-100">
   <div id="achievement-container" class="d-flex flex-col text-center">
     <div class="achievement title x1_5 d-flex center-x p-relative">
       <i class="p-absolute"><div class="flip-H">🎉</div></i>
@@ -381,14 +384,14 @@
             <div id="response-text"></div>
             <hr class="mb-0 mr-10">
           </div>
-          <button class="white-border--not-hovered d-none">OPTION A</button>
-          <button class="white-border--not-hovered d-none">OPTION B</button>
-          <button class="white-border--not-hovered d-none">OPTION C</button>
-          <button class="white-border--not-hovered d-none">OPTION D</button>
+          <button class="white-border--not-hovered d-none d_action">OPTION A</button>
+          <button class="white-border--not-hovered d-none d_action">OPTION B</button>
+          <button class="white-border--not-hovered d-none d_action">OPTION C</button>
+          <button class="white-border--not-hovered d-none d_action">OPTION D</button>
         </div>
       </div>
     </div>
-    <div class="click-anywhere mt-2rem mb-02rem d-none">click anywhere to dismiss...</div>
+    <div id="dismiss_dialogue" class="click-anywhere mt-2rem mb-02rem d-none">click anywhere to dismiss...</div>
   </div>
 </div>
 </body>

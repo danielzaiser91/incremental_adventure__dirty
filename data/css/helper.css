@@ -25,7 +25,9 @@
 .mt-2rem { margin-top: 2rem }
 .mb-0 { margin-bottom: 0; }
 .mr-10 { margin-right: 10px; }
-.not-allowed { cursor: not-allowed; }
+.not-allowed { cursor: not-allowed !important; }
+.pointer { cursor: pointer; }
+.cursor-normal { cursor: default !important; }
 .hidden { display: none; }
 .d-none { display: none !important; }
 .h-vh { height: 100vh; }
